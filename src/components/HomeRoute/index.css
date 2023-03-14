@@ -1,0 +1,25 @@
+.home-container {
+  background-color: #fafafa;
+  min-height: 90vh;
+  padding: 0px 20%;
+}
+@media (max-width: 576px) {
+  .home-container {
+    padding: 0px;
+  }
+}
+.posts-list-container {
+  display: flex;
+  padding-left: 0;
+  flex-direction: column;
+  align-items: center;
+}
+.line {
+  border: 0.5px solid #c6c6c8;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .line {
+    display: none;
+  }
+}

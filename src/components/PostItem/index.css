@@ -1,0 +1,102 @@
+.post-container {
+  list-style-type: none;
+  width: 100%;
+  background-color: antiquewhite;
+  margin-bottom: 32px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px 4px 0px 0px;
+}
+@media (max-width: 576px) {
+  .post-container {
+    margin-bottom: 0px;
+    border: none;
+  }
+}
+.name-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.post-author-profile {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+.profile-pic-container {
+  margin-left: 24px;
+}
+.post-author-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+  color: #262626;
+  margin-left: 8px;
+}
+@media (min-width: 768px) {
+  .post-author-name {
+    margin-left: 16px;
+  }
+}
+.post-image {
+  width: 100%;
+}
+.like-comment-icons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-left: -6px;
+}
+
+.like-icon {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-right: 17px;
+}
+.like-comment-container {
+  padding: 16px 24px;
+}
+.likes,
+.comment-author {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #262626;
+  margin: 0;
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+.caption,
+.comment {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+.comments-container {
+  padding-left: 0;
+}
+.comment-list-item {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.created-at {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #989898;
+  margin: 0;
+}
+.unlike-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-right: 17px;
+}
