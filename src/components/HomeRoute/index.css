@@ -23,3 +23,29 @@
     display: none;
   }
 }
+.failure-view-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.failure-heading {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #262626;
+}
+.retry-button {
+  width: 102px;
+  height: 32px;
+  background: #4094ef;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

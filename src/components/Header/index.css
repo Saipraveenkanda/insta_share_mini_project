@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  max-height: fit-content;
 }
 .website-card {
   height: 30px;
@@ -107,4 +108,25 @@
   .nav-items-mobile {
     display: none;
   }
+}
+.pop-up-container {
+  background: #fafafa;
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 7vh;
+  margin-bottom: 90vh;
+}
+.close-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 31px;
+}
+.home-active {
+  font-weight: 500;
+  color: #4094ef;
 }

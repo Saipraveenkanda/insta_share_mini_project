@@ -1,0 +1,41 @@
+.search-results-container {
+  padding: 0px 20%;
+}
+.search-heading {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  color: #262626;
+}
+.posts-list-container {
+  display: flex;
+  padding-left: 0;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 16px rgba(123, 135, 148, 0.16);
+  border-radius: 16px;
+  padding: 32px;
+}
+.no-search-found-container {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search-not-found {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  text-align: center;
+  color: #262626;
+  margin: 0;
+}
+.no-search-text {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  color: #989898;
+  margin: 0;
+}

@@ -85,6 +85,29 @@ class UserStories extends Component {
     </div>
   )
 
+  onClickRetry = () => {
+    this.getUserStories()
+  }
+
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        src="https://res.cloudinary.com/saipraveen/image/upload/v1678814534/Insta_share_project_files/alert-triangle_j5iljh.png"
+        alt="failure view"
+      />
+      <h1 className="failure-heading">
+        Something went wrong. Please try again
+      </h1>
+      <button
+        type="button"
+        className="retry-button"
+        onClick={this.onClickRetry}
+      >
+        Try again
+      </button>
+    </div>
+  )
+
   renderApiStatus = () => {
     const {storyApiStatus} = this.state
 
@@ -94,7 +117,7 @@ class UserStories extends Component {
       case storiesApiConstants.success:
         return this.renderUserStories()
       case storiesApiConstants.failure:
-        return this.renderFailureView() // failure view is pending
+        return this.renderFailureView()
       default:
         return null
     }

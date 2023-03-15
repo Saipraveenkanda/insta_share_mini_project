@@ -1,8 +1,7 @@
 import {Component} from 'react'
-import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import Cookies from 'js-cookie'
 import Header from '../Header'
-import UserStories from '../UserStories'
 import PostItem from '../PostItem'
 import './index.css'
 
@@ -13,7 +12,7 @@ const postApiConstants = {
   failure: 'FAILURE',
 }
 
-class HomeRoute extends Component {
+class SearchResults extends Component {
   state = {
     postsList: [],
     postApiStatus: postApiConstants.initial,
@@ -21,20 +20,23 @@ class HomeRoute extends Component {
   }
 
   componentDidMount() {
-    this.getPostsData()
+    this.getSearchResults()
   }
 
-  getPostsData = async () => {
+  getSearchResults = async () => {
     this.setState({postApiStatus: postApiConstants.pending})
+    const {match} = this.props
+    const {params} = match
+    const {searchInput} = params
     const jwtToken = Cookies.get('jwt_token')
-    const postsApiUrl = 'https://apis.ccbp.in/insta-share/posts'
+    const searchApiUrl = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     const options = {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
-    const response = await fetch(postsApiUrl, options)
+    const response = await fetch(searchApiUrl, options)
     const data = await response.json()
     if (response.ok === true) {
       const updatedData = data.posts.map(eachPost => ({
@@ -68,6 +70,40 @@ class HomeRoute extends Component {
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
+
+  renderPosts = () => {
+    const {postsList, likedPostIds} = this.state
+
+    if (postsList.length > 0) {
+      return (
+        <>
+          <h1 className="search-heading">Search Results</h1>
+          <ul className="posts-list-container">
+            {postsList.map(eachPost => (
+              <PostItem
+                postItemDetails={eachPost}
+                key={eachPost.postId}
+                likeClicked={this.likeClicked}
+                unlikeClicked={this.unlikeClicked}
+                isActive={likedPostIds.includes(eachPost.postId)}
+              />
+            ))}
+          </ul>
+        </>
+      )
+    }
+    return (
+      <div className="no-search-found-container">
+        <img
+          src="https://res.cloudinary.com/saipraveen/image/upload/v1678813144/Insta_share_project_files/Group_wqhzw9.png"
+          alt="search not found"
+          className="no-search-image"
+        />
+        <h1 className="search-not-found">Search Not Found</h1>
+        <p className="no-search-text">Try different keyword or search again</p>
+      </div>
+    )
+  }
 
   likeClicked = async id => {
     const postLikeApiUrl = `https://apis.ccbp.in/insta-share/posts/${id}/like`
@@ -125,26 +161,8 @@ class HomeRoute extends Component {
     }
   }
 
-  renderPosts = () => {
-    const {postsList, likedPostIds} = this.state
-
-    return (
-      <ul className="posts-list-container">
-        {postsList.map(eachPost => (
-          <PostItem
-            postItemDetails={eachPost}
-            key={eachPost.postId}
-            likeClicked={this.likeClicked}
-            unlikeClicked={this.unlikeClicked}
-            isActive={likedPostIds.includes(eachPost.postId)}
-          />
-        ))}
-      </ul>
-    )
-  }
-
   onClickRetry = () => {
-    this.getPostsData()
+    this.getSearchResults()
   }
 
   renderFailureView = () => (
@@ -168,7 +186,6 @@ class HomeRoute extends Component {
 
   renderPostApiStatus = () => {
     const {postApiStatus} = this.state
-
     switch (postApiStatus) {
       case postApiConstants.pending:
         return this.renderLoader()
@@ -185,13 +202,11 @@ class HomeRoute extends Component {
     return (
       <>
         <Header />
-        <div className="home-container">
-          <UserStories />
-          <hr className="line" />
+        <div className="search-results-container">
           {this.renderPostApiStatus()}
         </div>
       </>
     )
   }
 }
-export default HomeRoute
+export default SearchResults

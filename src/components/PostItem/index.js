@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {BiShareAlt} from 'react-icons/bi'
 import {FaRegComment} from 'react-icons/fa'
 import {BsHeart} from 'react-icons/bs'
@@ -11,7 +12,7 @@ const PostItem = props => {
     likesCount,
     postId,
     profilePic,
-    // userId,
+    userId,
     userName,
     postDetails,
     comments,
@@ -36,7 +37,9 @@ const PostItem = props => {
             className="post-author-profile"
           />
         </div>
-        <p className="post-author-name">{userName}</p>
+        <Link to={`/users/${userId}`} className="link-style">
+          <p className="post-author-name">{userName}</p>
+        </Link>
       </div>
       <img src={imageUrl} alt="post" className="post-image" />
       <div className="like-comment-container">
