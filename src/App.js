@@ -8,10 +8,11 @@ import MyProfile from './components/MyProfile'
 import './App.css'
 import InstaShareContext from './context/InstaShareContext'
 import SearchResults from './components/SearchResults'
+import SearchResultsMob from './components/SearchResultsMob'
 import NotFound from './components/NotFound'
 
 class App extends Component {
-  state = {input: '', activeLink: 'HOME'}
+  state = {input: ' ', activeLink: 'HOME'}
 
   onChangeInput = event => {
     this.setState({input: event.target.value})
@@ -27,9 +28,11 @@ class App extends Component {
       <InstaShareContext.Provider
         value={{
           input,
+
           activeLink,
           onChangeInput: this.onChangeInput,
           changeActiveButton: this.changeActiveButton,
+          searchClicked: this.searchClicked,
         }}
       >
         <Switch>
@@ -41,6 +44,11 @@ class App extends Component {
             exact
             path="/posts/search/:searchInput"
             component={SearchResults}
+          />
+          <ProtectedRoute
+            exact
+            path="/posts/search-mobile"
+            component={SearchResultsMob}
           />
           <Route component={NotFound} />
         </Switch>

@@ -47,7 +47,6 @@ class MyProfile extends Component {
         stories: data.stories,
         postsCount: data.posts_count,
       }
-      console.log(updatedData)
       this.setState({
         myProfileData: updatedData,
         apiStatus: myProfileApiConstants.success,
@@ -71,7 +70,7 @@ class MyProfile extends Component {
             <li className="post-list-item" key={eachPost.postId}>
               <img
                 src={eachPost.image}
-                alt="user post"
+                alt="my post"
                 className="user-post-image"
               />
             </li>
@@ -106,13 +105,13 @@ class MyProfile extends Component {
     return (
       <div className="user-profile-container">
         <div className="profile-card">
-          <img src={profilePic} alt="user profile" className="profile-pic" />
+          <img src={profilePic} alt="my profile" className="profile-pic" />
           <div className="profile-details">
             <h1 className="user-profile-name">{userName}</h1>
             <div className="count-container">
               <img
                 src={profilePic}
-                alt="user profile"
+                alt="my profile"
                 className="profile-pic-mobile"
               />
               <div className="count-items">
@@ -139,7 +138,7 @@ class MyProfile extends Component {
             <li className="story-card" key={eachStory.id}>
               <img
                 src={eachStory.image}
-                alt="user story"
+                alt="my story"
                 className="user-story-image"
               />
             </li>

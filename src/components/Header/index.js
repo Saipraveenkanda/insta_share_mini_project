@@ -19,6 +19,7 @@ const Header = props => {
         const {onChangeInput, input, activeLink, changeActiveButton} = value
         const homeClass = activeLink === 'HOME' ? 'home-active' : ''
         const profileClass = activeLink === 'PROFILE' ? 'home-active' : ''
+        const searchClass = activeLink === 'SEARCH' ? 'home-active' : ''
 
         return (
           <nav className="nav-bar">
@@ -86,13 +87,28 @@ const Header = props => {
                   <div className="pop-up-container">
                     <ul className="nav-items">
                       <Link to="/" className="link-style">
-                        <li className="nav-item">Home</li>
+                        <li
+                          className={`nav-item ${homeClass}`}
+                          onClick={() => changeActiveButton('HOME')}
+                        >
+                          Home
+                        </li>
                       </Link>
-                      <Link to="/" className="link-style">
-                        <li className="nav-item">Search</li>
+                      <Link to="/posts/search-mobile" className="link-style">
+                        <li
+                          className={`nav-item ${searchClass}`}
+                          onClick={() => changeActiveButton('SEARCH')}
+                        >
+                          Search
+                        </li>
                       </Link>
                       <Link to="/my-profile" className="link-style">
-                        <li className="nav-item">Profile</li>
+                        <li
+                          className={`nav-item ${profileClass}`}
+                          onClick={() => changeActiveButton('PROFILE')}
+                        >
+                          Profile
+                        </li>
                       </Link>
                       <button
                         type="button"

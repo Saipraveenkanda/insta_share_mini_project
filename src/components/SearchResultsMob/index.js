@@ -1,6 +1,7 @@
 import {Component} from 'react'
-import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
+import {FaSearch} from 'react-icons/fa'
 import Header from '../Header'
 import PostItem from '../PostItem'
 import './index.css'
@@ -12,23 +13,21 @@ const postApiConstants = {
   failure: 'FAILURE',
 }
 
-class SearchResults extends Component {
+class SearchResultsMob extends Component {
   state = {
+    searchInput: '',
     postsList: [],
     postApiStatus: postApiConstants.initial,
     likedPostIds: [],
-  }
-
-  componentDidMount() {
-    this.getSearchResults()
+    showEmptyScreen: true,
   }
 
   getSearchResults = async () => {
-    this.setState({postApiStatus: postApiConstants.pending})
-    const {match} = this.props
-    const {params} = match
-    const {searchInput} = params
-    console.log(searchInput)
+    const {searchInput} = this.state
+    this.setState({
+      postApiStatus: postApiConstants.pending,
+      showEmptyScreen: false,
+    })
     const jwtToken = Cookies.get('jwt_token')
     const searchApiUrl = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     const options = {
@@ -66,6 +65,14 @@ class SearchResults extends Component {
     }
   }
 
+  onChangeInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  onSearchSubmit = () => {
+    this.getSearchResults()
+  }
+
   renderLoader = () => (
     <div className="loader-container">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
@@ -77,20 +84,17 @@ class SearchResults extends Component {
 
     if (postsList.length > 0) {
       return (
-        <>
-          <h1 className="search-heading">Search Results</h1>
-          <ul className="posts-list-container-search">
-            {postsList.map(eachPost => (
-              <PostItem
-                postItemDetails={eachPost}
-                key={eachPost.postId}
-                likeClicked={this.likeClicked}
-                unlikeClicked={this.unlikeClicked}
-                isActive={likedPostIds.includes(eachPost.postId)}
-              />
-            ))}
-          </ul>
-        </>
+        <ul className="posts-list-container-mobile">
+          {postsList.map(eachPost => (
+            <PostItem
+              postItemDetails={eachPost}
+              key={eachPost.postId}
+              likeClicked={this.likeClicked}
+              unlikeClicked={this.unlikeClicked}
+              isActive={likedPostIds.includes(eachPost.postId)}
+            />
+          ))}
+        </ul>
       )
     }
     return (
@@ -199,15 +203,46 @@ class SearchResults extends Component {
     }
   }
 
+  renderEmptyScreen = () => (
+    <div className="empty-screen-container">
+      <img
+        src="https://res.cloudinary.com/saipraveen/image/upload/v1678896403/Frame_1473_elfq49.png"
+        alt="empty-search"
+      />
+      <h1 className="empty-search-heading">
+        Search Results will be appear here
+      </h1>
+    </div>
+  )
+
   render() {
+    const {searchInput, showEmptyScreen} = this.state
     return (
       <>
         <Header />
-        <div className="search-results-container">
+        <div>
+          <div className="search-container-mob">
+            <input
+              type="search"
+              className="search-style-mob"
+              placeholder="Search Caption"
+              onChange={this.onChangeInput}
+              value={searchInput}
+            />
+
+            <button
+              type="button"
+              className="search-button"
+              onClick={this.onSearchSubmit}
+            >
+              <FaSearch color="#989898" size={14} />
+            </button>
+          </div>
+          {showEmptyScreen ? this.renderEmptyScreen() : null}
           {this.renderPostApiStatus()}
         </div>
       </>
     )
   }
 }
-export default SearchResults
+export default SearchResultsMob

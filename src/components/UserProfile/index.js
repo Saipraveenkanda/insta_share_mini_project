@@ -51,7 +51,6 @@ class UserProfile extends Component {
         stories: data.stories,
         postsCount: data.posts_count,
       }
-      console.log(updatedData)
       this.setState({
         userProfileData: updatedData,
         apiStatus: userProfileApiConstants.success,

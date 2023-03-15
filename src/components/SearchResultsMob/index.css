@@ -1,0 +1,50 @@
+.search-container-mob {
+  height: 28px;
+  top: 18px;
+  background: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 24px;
+  margin-right: 56px;
+}
+.search-style-mob {
+  background-color: transparent;
+  color: #989898;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 6px 12px;
+  line-height: 16px;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+.posts-list-container-mobile {
+  display: flex;
+  padding-left: 0;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 16px rgba(123, 135, 148, 0.16);
+  border-radius: 16px;
+}
+.empty-search-heading {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: -0.01px;
+  color: #989898;
+  width: 284px;
+  height: 64px;
+  left: 38px;
+  top: 346px;
+}
+.empty-screen-container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
