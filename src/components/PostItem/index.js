@@ -49,11 +49,17 @@ const PostItem = props => {
               type="button"
               className="unlike-button"
               onClick={onClickUnlike}
+              testid="unLikeIcon"
             >
               <FcLike size={26} />
             </button>
           ) : (
-            <button type="button" className="like-icon" onClick={onClickLike}>
+            <button
+              type="button"
+              className="like-icon"
+              onClick={onClickLike}
+              testid="likeIcon"
+            >
               <BsHeart size={24} color="#475569" className="like-state" />
             </button>
           )}

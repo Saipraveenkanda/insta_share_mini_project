@@ -24,12 +24,13 @@ class SearchResults extends Component {
   }
 
   getSearchResults = async () => {
+    console.log('Getting Search Results')
     this.setState({postApiStatus: postApiConstants.pending})
     const {match} = this.props
     const {params} = match
     const {searchInput} = params
-    console.log(searchInput)
     const jwtToken = Cookies.get('jwt_token')
+    console.log(jwtToken)
     const searchApiUrl = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     const options = {
       method: 'GET',
@@ -39,6 +40,7 @@ class SearchResults extends Component {
     }
     const response = await fetch(searchApiUrl, options)
     const data = await response.json()
+    console.log(data)
     if (response.ok === true) {
       const updatedData = data.posts.map(eachPost => ({
         createdAt: eachPost.created_at,
@@ -61,6 +63,7 @@ class SearchResults extends Component {
         postsList: updatedData,
         postApiStatus: postApiConstants.success,
       })
+      console.log('Api success')
     } else {
       this.setState({postApiStatus: postApiConstants.failure})
     }

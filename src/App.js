@@ -28,11 +28,9 @@ class App extends Component {
       <InstaShareContext.Provider
         value={{
           input,
-
           activeLink,
           onChangeInput: this.onChangeInput,
           changeActiveButton: this.changeActiveButton,
-          searchClicked: this.searchClicked,
         }}
       >
         <Switch>

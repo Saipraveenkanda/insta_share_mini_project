@@ -17,15 +17,52 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 14px 24px;
 }
 .post-author-profile {
   height: 28px;
   width: 28px;
   border-radius: 50%;
 }
+/* .profile-pic-container {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border: 1.03px solid;
+  background-color: linear-gradient(
+    314.35deg,
+    #e20337 6.03%,
+    #c60188 40.88%,
+    #7700c3 73.23%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+} */
+
 .profile-pic-container {
-  margin-left: 24px;
+  left: 2.31%;
+  right: 94.62%;
+  top: 1.62%;
+  bottom: 94.69%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border: 1.03px;
+  background: linear-gradient(
+    314.35deg,
+    #e20337 6.03%,
+    #c60188 40.88%,
+    #7700c3 73.23%
+  );
+
+  padding: 2px;
 }
+
 .post-author-name {
   font-weight: 500;
   font-size: 14px;

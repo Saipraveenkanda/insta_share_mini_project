@@ -30,7 +30,7 @@ const Header = props => {
                   alt="website logo"
                   className="website-logo"
                 />
-                <p className="app-name">Insta Share</p>
+                <h1 className="app-name">Insta Share</h1>
               </div>
             </Link>
             <div className="nav-items-web">
@@ -42,7 +42,11 @@ const Header = props => {
                   onChange={onChangeInput}
                 />
                 <Link to={`/posts/search/${input}`}>
-                  <button type="button" className="search-button">
+                  <button
+                    type="button"
+                    className="search-button"
+                    testid="searchIcon"
+                  >
                     <FaSearch color="#989898" size={14} />
                   </button>
                 </Link>
