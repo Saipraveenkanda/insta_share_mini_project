@@ -31,11 +31,13 @@ const PostItem = props => {
     <li className="post-container">
       <div className="name-card">
         <div className="profile-pic-container">
-          <img
-            src={profilePic}
-            alt="post author profile"
-            className="post-author-profile"
-          />
+          <div className="prof-pic-bg">
+            <img
+              src={profilePic}
+              alt="post author profile"
+              className="post-author-profile"
+            />
+          </div>
         </div>
         <Link to={`/users/${userId}`} className="link-style">
           <p className="post-author-name">{userName}</p>
@@ -49,17 +51,11 @@ const PostItem = props => {
               type="button"
               className="unlike-button"
               onClick={onClickUnlike}
-              testid="unLikeIcon"
             >
               <FcLike size={26} />
             </button>
           ) : (
-            <button
-              type="button"
-              className="like-icon"
-              onClick={onClickLike}
-              testid="likeIcon"
-            >
+            <button type="button" className="like-icon" onClick={onClickLike}>
               <BsHeart size={24} color="#475569" className="like-state" />
             </button>
           )}

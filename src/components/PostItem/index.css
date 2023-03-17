@@ -42,10 +42,6 @@
 } */
 
 .profile-pic-container {
-  left: 2.31%;
-  right: 94.62%;
-  top: 1.62%;
-  bottom: 94.69%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,14 +49,22 @@
   width: 32px;
   border-radius: 50%;
   border: 1.03px;
-  background: linear-gradient(
+  background-image: linear-gradient(
     314.35deg,
     #e20337 6.03%,
     #c60188 40.88%,
     #7700c3 73.23%
   );
-
-  padding: 2px;
+}
+.prof-pic-bg {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
 }
 
 .post-author-name {
