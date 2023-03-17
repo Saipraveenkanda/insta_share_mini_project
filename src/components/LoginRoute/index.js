@@ -62,7 +62,7 @@ class LoginRoute extends Component {
             alt="website logo"
             className="website-logo"
           />
-          <p className="app-name">Insta Share</p>
+          <h1 className="app-name">Insta Share</h1>
           <label htmlFor="userName" className="label">
             USERNAME
           </label>
