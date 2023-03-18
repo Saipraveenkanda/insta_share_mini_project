@@ -28,7 +28,7 @@ const PostItem = props => {
   }
 
   return (
-    <li className="post-container">
+    <li className="post-container" testid="postItem">
       <div className="name-card">
         <div className="profile-pic-container">
           <div className="prof-pic-bg">
@@ -51,11 +51,17 @@ const PostItem = props => {
               type="button"
               className="unlike-button"
               onClick={onClickUnlike}
+              testid="unLikeIcon"
             >
               <FcLike size={26} />
             </button>
           ) : (
-            <button type="button" className="like-icon" onClick={onClickLike}>
+            <button
+              type="button"
+              className="like-icon"
+              onClick={onClickLike}
+              testid="likeIcon"
+            >
               <BsHeart size={24} color="#475569" className="like-state" />
             </button>
           )}
@@ -72,8 +78,10 @@ const PostItem = props => {
           <ul className="comments-container">
             {comments.map(eachComment => (
               <li key={eachComment.userId} className="comment-list-item">
-                <p className="comment-author">{eachComment.userName}</p>
-                <p className="comment">{eachComment.comment}</p>
+                <p className="comment">
+                  <span className="comment-author">{eachComment.userName}</span>
+                  {eachComment.comment}
+                </p>
               </li>
             ))}
           </ul>

@@ -61,6 +61,7 @@ const settings = {
 class HomeRoute extends Component {
   state = {
     postsList: [],
+    searchedPosts: [],
     storiesList: [],
     postApiStatus: postApiConstants.initial,
     likedPostIds: [],
@@ -69,6 +70,8 @@ class HomeRoute extends Component {
     showSearchResults: false,
     searchStatus: searchApiConstants.initial,
     emptyScreen: true,
+    showMenu: false,
+    activeLink: 'HOME',
   }
 
   componentDidMount() {
@@ -146,7 +149,7 @@ class HomeRoute extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -197,8 +200,7 @@ class HomeRoute extends Component {
       this.setState(prevState => ({
         postsList: prevState.postsList.map(eachPost => {
           if (eachPost.postId === id) {
-            const updatedLike = eachPost.likesCount - 1
-            return {...eachPost, likesCount: updatedLike}
+            return {...eachPost, likesCount: prevState.likesCount - 1}
           }
           return eachPost
         }),
@@ -235,9 +237,7 @@ class HomeRoute extends Component {
         src="https://res.cloudinary.com/saipraveen/image/upload/v1678814534/Insta_share_project_files/alert-triangle_j5iljh.png"
         alt="failure view"
       />
-      <h1 className="failure-heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure-heading">Something went wrong. Please try again</p>
       <button
         type="button"
         className="retry-button"
@@ -299,9 +299,10 @@ class HomeRoute extends Component {
         })),
       }))
       this.setState({
-        postsList: updatedData,
+        searchedPosts: updatedData,
         searchStatus: searchApiConstants.success,
         showSearchResults: true,
+        searchInput: '',
       })
     } else {
       this.setState({searchStatus: searchApiConstants.failure})
@@ -321,6 +322,12 @@ class HomeRoute extends Component {
     this.getSearchResults()
   }
 
+  renderSearchLoader = () => (
+    <div className="loader-container" testid="loader">
+      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+    </div>
+  )
+
   renderSearchResultsApi = () => {
     const {searchStatus} = this.state
     switch (searchStatus) {
@@ -336,36 +343,37 @@ class HomeRoute extends Component {
   }
 
   renderSearchedPosts = () => {
-    const {postsList, likedPostIds} = this.state
-
-    if (postsList.length > 0) {
+    const {searchedPosts, likedPostIds} = this.state
+    if (searchedPosts.length === 0) {
       return (
-        <>
-          <h1 className="search-heading">Search Results</h1>
-          <ul className="posts-list-container-search">
-            {postsList.map(eachPost => (
-              <PostItem
-                postItemDetails={eachPost}
-                key={eachPost.postId}
-                likeClicked={this.likeClicked}
-                unlikeClicked={this.unlikeClicked}
-                isActive={likedPostIds.includes(eachPost.postId)}
-              />
-            ))}
-          </ul>
-        </>
+        <div className="no-search-found-container">
+          <img
+            src="https://res.cloudinary.com/saipraveen/image/upload/v1678813144/Insta_share_project_files/Group_wqhzw9.png"
+            alt="search not found"
+            className="no-search-image"
+          />
+          <h1 className="search-not-found">Search Not Found</h1>
+          <p className="no-search-text">
+            Try different keyword or search again
+          </p>
+        </div>
       )
     }
     return (
-      <div className="no-search-found-container">
-        <img
-          src="https://res.cloudinary.com/saipraveen/image/upload/v1678813144/Insta_share_project_files/Group_wqhzw9.png"
-          alt="search not found"
-          className="no-search-image"
-        />
-        <h1 className="search-not-found">Search Not Found</h1>
-        <p className="no-search-text">Try different keyword or search again</p>
-      </div>
+      <>
+        <h1 className="search-heading">Search Results</h1>
+        <ul className="posts-list-container-search">
+          {searchedPosts.map(eachPost => (
+            <PostItem
+              postItemDetails={eachPost}
+              key={eachPost.postId}
+              likeClicked={this.likeClicked}
+              unlikeClicked={this.unlikeClicked}
+              isActive={likedPostIds.includes(eachPost.postId)}
+            />
+          ))}
+        </ul>
+      </>
     )
   }
 
@@ -379,9 +387,7 @@ class HomeRoute extends Component {
         src="https://res.cloudinary.com/saipraveen/image/upload/v1678814534/Insta_share_project_files/alert-triangle_j5iljh.png"
         alt="failure view"
       />
-      <h1 className="failure-heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure-heading">Something went wrong. Please try again</p>
       <button
         type="button"
         className="retry-button"
@@ -389,12 +395,6 @@ class HomeRoute extends Component {
       >
         Try again
       </button>
-    </div>
-  )
-
-  renderSearchLoader = () => (
-    <div className="loader-container">
-      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
 
@@ -434,7 +434,7 @@ class HomeRoute extends Component {
   }
 
   renderStoriesLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -449,9 +449,7 @@ class HomeRoute extends Component {
         src="https://res.cloudinary.com/saipraveen/image/upload/v1678814534/Insta_share_project_files/alert-triangle_j5iljh.png"
         alt="failure view"
       />
-      <h1 className="failure-heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure-heading">Something went wrong. Please try again</p>
       <button
         type="button"
         className="retry-button"
@@ -481,14 +479,37 @@ class HomeRoute extends Component {
 
   // Stories Code END
 
+  toggleMenuButton = () => {
+    this.setState({showMenu: true})
+  }
+
+  toggleCloseButton = () => {
+    this.setState({showMenu: false})
+  }
+
+  toggleLink = value => {
+    this.setState({activeLink: value})
+  }
+
   render() {
-    const {showSearchResults, searchInput, emptyScreen} = this.state
+    const {
+      showSearchResults,
+      searchInput,
+      emptyScreen,
+      showMenu,
+      activeLink,
+    } = this.state
     return (
       <>
         <Header
           onSearchClicked={this.onSearchClicked}
           changeInput={this.changeInput}
           showMobileSearch={this.showMobileSearch}
+          toggleMenuButton={this.toggleMenuButton}
+          showMenu={showMenu}
+          toggleCloseButton={this.toggleCloseButton}
+          toggleLink={this.toggleLink}
+          activeLink={activeLink}
         />
         <div className="home-container">
           {showSearchResults ? (
@@ -506,6 +527,7 @@ class HomeRoute extends Component {
                   type="button"
                   className="search-button"
                   onClick={this.onSearchSubmitMobile}
+                  testid="searchIcon"
                 >
                   <FaSearch color="#989898" size={14} />
                 </button>

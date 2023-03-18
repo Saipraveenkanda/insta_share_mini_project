@@ -111,13 +111,9 @@
 }
 .pop-up-container {
   background: #fafafa;
-  width: 100vw;
-  height: 15vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 7vh;
-  margin-bottom: 90vh;
 }
 .close-button {
   background-color: transparent;
@@ -128,5 +124,15 @@
 }
 .home-active {
   font-weight: 500;
+  color: #4094ef;
+}
+.nav-items-mob {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0px 26px;
+}
+.active {
   color: #4094ef;
 }

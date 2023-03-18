@@ -219,6 +219,11 @@
   justify-content: center;
   align-items: center;
 }
+@media (min-width: 768px) {
+  .empty-screen-container {
+    display: none;
+  }
+}
 .search-style-mob {
   background-color: transparent;
   color: #989898;

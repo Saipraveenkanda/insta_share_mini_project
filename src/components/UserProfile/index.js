@@ -38,7 +38,7 @@ class UserProfile extends Component {
     const fetchedData = await response.json()
     if (response.ok === true) {
       const data = fetchedData.user_details
-
+      console.log(data)
       const updatedData = {
         followersCount: data.followers_count,
         followingCount: data.following_count,
@@ -61,7 +61,7 @@ class UserProfile extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -71,7 +71,7 @@ class UserProfile extends Component {
       return (
         <ul className="posts-list">
           {posts.map(eachPost => (
-            <li className="post-list-item" key={eachPost.postId}>
+            <li className="post-list-item" key={eachPost.id}>
               <img
                 src={eachPost.image}
                 alt="user post"
@@ -87,7 +87,7 @@ class UserProfile extends Component {
         <div className="camera-icon-ring">
           <BiCamera size={34} />
         </div>
-        <p className="no-posts-text">No Posts Yet</p>
+        <h1 className="no-posts-text">No Posts</h1>
       </div>
     )
   }
@@ -153,7 +153,7 @@ class UserProfile extends Component {
         <hr className="user-profile-line" />
         <div className="posts-heading">
           <BsGrid3X3 />
-          <p className="posts-text">Posts</p>
+          <h1 className="posts-text">Posts</h1>
         </div>
         {this.renderPostsContainer(posts, postsCount)}
       </div>
@@ -170,9 +170,7 @@ class UserProfile extends Component {
         src="https://res.cloudinary.com/saipraveen/image/upload/v1678814534/Insta_share_project_files/alert-triangle_j5iljh.png"
         alt="failure view"
       />
-      <h1 className="failure-heading">
-        Something went wrong. Please try again
-      </h1>
+      <p className="failure-heading">Something went wrong. Please try again</p>
       <button
         type="button"
         className="retry-button"

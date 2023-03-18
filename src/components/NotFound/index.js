@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import './index.css'
 
 const NotFound = () => (
@@ -11,6 +12,11 @@ const NotFound = () => (
       we are sorry, the page you requested could not be found. Please go back to
       the homepage.
     </p>
+    <Link to="/" className="link-style">
+      <button type="button" className="homepage-button">
+        Home Page
+      </button>
+    </Link>
   </div>
 )
 export default NotFound
