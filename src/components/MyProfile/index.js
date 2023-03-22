@@ -33,22 +33,22 @@ class MyProfile extends Component {
     }
     const response = await fetch(myProfileApiUrl, options)
     const fetchedData = await response.json()
+    const myData = fetchedData.profile
     if (response.ok === true) {
-      const data = fetchedData.profile
-      const updatedData = {
-        followersCount: data.followers_count,
-        followingCount: data.following_count,
-        id: data.id,
-        profilePic: data.profile_pic,
-        userBio: data.user_bio,
-        userId: data.user_id,
-        userName: data.user_name,
-        posts: data.posts,
-        stories: data.stories,
-        postsCount: data.posts_count,
+      const myProfileUpdated = {
+        followersCount: myData.followers_count,
+        followingCount: myData.following_count,
+        id: myData.id,
+        profilePic: myData.profile_pic,
+        userBio: myData.user_bio,
+        userId: myData.user_id,
+        userName: myData.user_name,
+        posts: myData.posts,
+        stories: myData.stories,
+        postsCount: myData.posts_count,
       }
       this.setState({
-        myProfileData: updatedData,
+        myProfileData: myProfileUpdated,
         apiStatus: myProfileApiConstants.success,
       })
     } else {
@@ -57,7 +57,7 @@ class MyProfile extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container" testid="loader">
+    <div className="loader-container">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )

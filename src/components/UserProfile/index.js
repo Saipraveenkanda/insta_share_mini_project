@@ -36,23 +36,22 @@ class UserProfile extends Component {
     }
     const response = await fetch(userProfileApiUrl, options)
     const fetchedData = await response.json()
+    const userData = fetchedData.user_details
     if (response.ok === true) {
-      const data = fetchedData.user_details
-      console.log(data)
-      const updatedData = {
-        followersCount: data.followers_count,
-        followingCount: data.following_count,
-        id: data.id,
-        profilePic: data.profile_pic,
-        userBio: data.user_bio,
-        userId: data.user_id,
-        userName: data.user_name,
-        posts: data.posts,
-        stories: data.stories,
-        postsCount: data.posts_count,
+      const userProfileUpdated = {
+        followersCount: userData.followers_count,
+        followingCount: userData.following_count,
+        id: userData.id,
+        profilePic: userData.profile_pic,
+        userBio: userData.user_bio,
+        userId: userData.user_id,
+        userName: userData.user_name,
+        posts: userData.posts,
+        stories: userData.stories,
+        postsCount: userData.posts_count,
       }
       this.setState({
-        userProfileData: updatedData,
+        userProfileData: userProfileUpdated,
         apiStatus: userProfileApiConstants.success,
       })
     } else {
@@ -61,7 +60,7 @@ class UserProfile extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container" testid="loader">
+    <div className="loader-container">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -137,19 +136,19 @@ class UserProfile extends Component {
             <p className="user-bio">{userBio}</p>
           </div>
         </div>
-        {stories.length > 0 ? (
-          <ul className="user-stories-container">
-            {stories.map(eachStory => (
-              <li className="story-card" key={eachStory.id}>
-                <img
-                  src={eachStory.image}
-                  alt="user story"
-                  className="user-story-image"
-                />
-              </li>
-            ))}
-          </ul>
-        ) : null}
+
+        <ul className="user-stories-container">
+          {stories.map(eachStory => (
+            <li className="story-card" key={eachStory.id}>
+              <img
+                src={eachStory.image}
+                alt="user story"
+                className="user-story-image"
+              />
+            </li>
+          ))}
+        </ul>
+
         <hr className="user-profile-line" />
         <div className="posts-heading">
           <BsGrid3X3 />

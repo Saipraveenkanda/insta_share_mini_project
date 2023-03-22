@@ -61,7 +61,6 @@ const settings = {
 class HomeRoute extends Component {
   state = {
     postsList: [],
-    searchedPosts: [],
     storiesList: [],
     postApiStatus: postApiConstants.initial,
     likedPostIds: [],
@@ -75,7 +74,6 @@ class HomeRoute extends Component {
   }
 
   componentDidMount() {
-    this.setState({showSearchResults: false})
     this.getPostsData()
     this.getUserStories()
   }
@@ -149,7 +147,7 @@ class HomeRoute extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container" testid="loader">
+    <div className="loader-container">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -200,7 +198,8 @@ class HomeRoute extends Component {
       this.setState(prevState => ({
         postsList: prevState.postsList.map(eachPost => {
           if (eachPost.postId === id) {
-            return {...eachPost, likesCount: prevState.likesCount - 1}
+            const updatedLike = eachPost.likesCount - 1
+            return {...eachPost, likesCount: updatedLike}
           }
           return eachPost
         }),
@@ -269,7 +268,10 @@ class HomeRoute extends Component {
 
   getSearchResults = async () => {
     const {searchInput} = this.state
-    this.setState({searchStatus: searchApiConstants.pending})
+    this.setState({
+      showSearchResults: true,
+      searchStatus: searchApiConstants.pending,
+    })
     const jwtToken = Cookies.get('jwt_token')
     const searchApiUrl = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     const options = {
@@ -299,13 +301,17 @@ class HomeRoute extends Component {
         })),
       }))
       this.setState({
-        searchedPosts: updatedData,
+        postsList: updatedData,
         searchStatus: searchApiConstants.success,
         showSearchResults: true,
         searchInput: '',
       })
     } else {
-      this.setState({searchStatus: searchApiConstants.failure})
+      this.setState({
+        searchStatus: searchApiConstants.failure,
+        showSearchResults: true,
+        searchInput: '',
+      })
     }
   }
 
@@ -322,11 +328,15 @@ class HomeRoute extends Component {
     this.getSearchResults()
   }
 
-  renderSearchLoader = () => (
-    <div className="loader-container" testid="loader">
-      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
-    </div>
-  )
+  renderSearchLoader = () => {
+    console.log('search loader rendering')
+    // testid="loader"
+    return (
+      <div className="loader-container">
+        <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+      </div>
+    )
+  }
 
   renderSearchResultsApi = () => {
     const {searchStatus} = this.state
@@ -343,8 +353,8 @@ class HomeRoute extends Component {
   }
 
   renderSearchedPosts = () => {
-    const {searchedPosts, likedPostIds} = this.state
-    if (searchedPosts.length === 0) {
+    const {postsList, likedPostIds} = this.state
+    if (postsList.length === 0) {
       return (
         <div className="no-search-found-container">
           <img
@@ -363,7 +373,7 @@ class HomeRoute extends Component {
       <>
         <h1 className="search-heading">Search Results</h1>
         <ul className="posts-list-container-search">
-          {searchedPosts.map(eachPost => (
+          {postsList.map(eachPost => (
             <PostItem
               postItemDetails={eachPost}
               key={eachPost.postId}
@@ -434,7 +444,7 @@ class HomeRoute extends Component {
   }
 
   renderStoriesLoader = () => (
-    <div className="loader-container" testid="loader">
+    <div className="loader-container">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -527,7 +537,7 @@ class HomeRoute extends Component {
                   type="button"
                   className="search-button"
                   onClick={this.onSearchSubmitMobile}
-                  testid="searchIcon"
+                  // testid="searchIcon"
                 >
                   <FaSearch color="#989898" size={14} />
                 </button>

@@ -28,7 +28,7 @@ const PostItem = props => {
   }
 
   return (
-    <li className="post-container" testid="postItem">
+    <li className="post-container">
       <div className="name-card">
         <div className="profile-pic-container">
           <div className="prof-pic-bg">
@@ -51,7 +51,7 @@ const PostItem = props => {
               type="button"
               className="unlike-button"
               onClick={onClickUnlike}
-              testid="unLikeIcon"
+              // testid="unLikeIcon"
             >
               <FcLike size={26} />
             </button>
@@ -60,7 +60,7 @@ const PostItem = props => {
               type="button"
               className="like-icon"
               onClick={onClickLike}
-              testid="likeIcon"
+              // testid="likeIcon"
             >
               <BsHeart size={24} color="#475569" className="like-state" />
             </button>
