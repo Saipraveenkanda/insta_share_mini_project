@@ -147,7 +147,7 @@ class HomeRoute extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -310,7 +310,6 @@ class HomeRoute extends Component {
       this.setState({
         searchStatus: searchApiConstants.failure,
         showSearchResults: true,
-        searchInput: '',
       })
     }
   }
@@ -332,7 +331,7 @@ class HomeRoute extends Component {
     console.log('search loader rendering')
     // testid="loader"
     return (
-      <div className="loader-container">
+      <div className="loader-container" testid="loader">
         <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
       </div>
     )
@@ -354,6 +353,7 @@ class HomeRoute extends Component {
 
   renderSearchedPosts = () => {
     const {postsList, likedPostIds} = this.state
+    console.log(postsList)
     if (postsList.length === 0) {
       return (
         <div className="no-search-found-container">
@@ -444,7 +444,7 @@ class HomeRoute extends Component {
   }
 
   renderStoriesLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -537,7 +537,7 @@ class HomeRoute extends Component {
                   type="button"
                   className="search-button"
                   onClick={this.onSearchSubmitMobile}
-                  // testid="searchIcon"
+                  testid="searchIcon"
                 >
                   <FaSearch color="#989898" size={14} />
                 </button>

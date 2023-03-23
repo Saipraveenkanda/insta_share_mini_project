@@ -15,14 +15,14 @@ const myProfileApiConstants = {
 }
 
 class MyProfile extends Component {
-  state = {myProfileData: {}, apiStatus: myProfileApiConstants.initial}
+  state = {myProfileData: {}, myApiStatus: myProfileApiConstants.initial}
 
   componentDidMount() {
     this.getMyProfileDetails()
   }
 
   getMyProfileDetails = async () => {
-    this.setState({apiStatus: myProfileApiConstants.pending})
+    this.setState({myApiStatus: myProfileApiConstants.pending})
     const myProfileApiUrl = 'https://apis.ccbp.in/insta-share/my-profile'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -49,15 +49,15 @@ class MyProfile extends Component {
       }
       this.setState({
         myProfileData: myProfileUpdated,
-        apiStatus: myProfileApiConstants.success,
+        myApiStatus: myProfileApiConstants.success,
       })
     } else {
-      this.setState({apiStatus: myProfileApiConstants.failure})
+      this.setState({myApiStatus: myProfileApiConstants.failure})
     }
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -176,8 +176,8 @@ class MyProfile extends Component {
   )
 
   renderApiStatus = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
+    const {myApiStatus} = this.state
+    switch (myApiStatus) {
       case myProfileApiConstants.pending:
         return this.renderLoader()
       case myProfileApiConstants.success:

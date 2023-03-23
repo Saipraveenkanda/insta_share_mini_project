@@ -60,7 +60,7 @@ const Header = props => {
                     type="button"
                     className="search-button"
                     onClick={onSearchClicked}
-                    // testid="searchIcon"
+                    testid="searchIcon"
                   >
                     <FaSearch color="#989898" size={14} />
                   </button>

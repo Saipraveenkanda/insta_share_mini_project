@@ -15,14 +15,14 @@ const userProfileApiConstants = {
 }
 
 class UserProfile extends Component {
-  state = {userProfileData: {}, apiStatus: userProfileApiConstants.initial}
+  state = {userProfileData: {}, UserApiStatus: userProfileApiConstants.initial}
 
   componentDidMount() {
     this.getUserProfileDetails()
   }
 
   getUserProfileDetails = async () => {
-    this.setState({apiStatus: userProfileApiConstants.pending})
+    this.setState({UserApiStatus: userProfileApiConstants.pending})
     const {match} = this.props
     const {params} = match
     const {id} = params
@@ -52,15 +52,15 @@ class UserProfile extends Component {
       }
       this.setState({
         userProfileData: userProfileUpdated,
-        apiStatus: userProfileApiConstants.success,
+        UserApiStatus: userProfileApiConstants.success,
       })
     } else {
-      this.setState({apiStatus: userProfileApiConstants.failure})
+      this.setState({UserApiStatus: userProfileApiConstants.failure})
     }
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -181,8 +181,8 @@ class UserProfile extends Component {
   )
 
   renderApiStatus = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
+    const {UserApiStatus} = this.state
+    switch (UserApiStatus) {
       case userProfileApiConstants.pending:
         return this.renderLoader()
       case userProfileApiConstants.success:
